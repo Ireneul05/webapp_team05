@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Upgrade - Fitness with Pets</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #f0fdf4;
+        }
+
+        .navbar-personalizzata {
+            background-color: #14532d;
+        }
+    </style>
+</head>
+
+<body>
+
+<nav class="navbar navbar-dark navbar-personalizzata">
+    <div class="container">
+
+        <a class="navbar-brand fw-bold"
+           th:href="@{/basic/dashboard}">
+            Fitness with Pets
+        </a>
+
+        <span class="badge bg-primary">
+            Piano Basic
+        </span>
+
+    </div>
+</nav>
+
+<main class="container py-5">
+
+    <section class="bg-white rounded-4 shadow-sm p-5 text-center">
+
+        <h1 class="text-success fw-bold">
+            Passa al Piano Pro
+        </h1>
+
+        <p class="lead text-muted">
+            Il Piano Pro ti permette di creare programmi personalizzati
+            e accedere a tutte le funzionalità della piattaforma.
+        </p>
+
+        <div class="border rounded-4 p-4 my-4">
+
+            <h2 class="fw-bold">
+                Piano Pro
+            </h2>
+
+            <p class="display-6 fw-bold text-success">
+                99,99 €
+            </p>
+
+            <p class="text-muted">
+                Abbonamento annuale
+            </p>
+
+            <ul class="list-group list-group-flush text-start mb-4">
+                <li class="list-group-item">
+                    Programmi di allenamento predefiniti
+                </li>
+
+                <li class="list-group-item">
+                    Creazione di programmi personalizzati
+                </li>
+
+                <li class="list-group-item">
+                    Statistiche complete
+                </li>
+            </ul>
+
+            <button type="button"
+                    class="btn btn-warning btn-lg">
+                Conferma upgrade
+            </button>
+
+        </div>
+
+        <a th:href="@{/basic/dashboard}"
+           class="btn btn-outline-success">
+            Torna alla dashboard
+        </a>
+
+    </section>
+
+</main>
+
+</body>
+</html>

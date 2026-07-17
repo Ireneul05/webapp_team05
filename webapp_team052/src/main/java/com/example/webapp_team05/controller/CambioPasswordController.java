@@ -82,6 +82,10 @@ public class CambioPasswordController {
         return "redirect:" + request.getRequestURI();
     }
 
+    @GetMapping("/pro/inserisci-programma")
+    public String inserisciProgramma() {
+        return "inserisci-programma";
+    }
     private String trovaDashboard(String percorso) {
 
         if (percorso.startsWith("/prova/")) {

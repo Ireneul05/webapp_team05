@@ -1,7 +1,6 @@
 /*per controllare se l'utente esiste
 * cifro la password e inserisci utente in users
 * e mette il ruolo in authorieties*/
-
 package com.example.webapp_team05.config;
 
 import org.springframework.boot.CommandLineRunner;
@@ -92,7 +91,18 @@ public class TestUsersConfig {
             LocalDate dataNascita,
             String email) {
 
-        // Inserimento nelle tabelle gestite da Spring Security
+        /*
+         * Crea l'account nelle tabelle Spring Security:
+         *
+         * users:
+         * - username
+         * - password
+         * - enabled
+         *
+         * authorities:
+         * - username
+         * - authority
+         */
         if (!userManager.userExists(username)) {
 
             userManager.createUser(
@@ -103,21 +113,76 @@ public class TestUsersConfig {
                             .build()
             );
 
-            System.out.println("Creato utente Security: " + username);
+            System.out.println(
+                    "Creato account Security: " + username
+            );
         }
 
-        // Inserimento dei dati personali nella tabella utenti
+        /*
+         * Verifica che l'utente abbia il ruolo corretto.
+         */
+        Integer numeroRuoli = jdbcTemplate.queryForObject(
+                """
+                SELECT COUNT(*)
+                FROM authorities
+                WHERE username = ?
+                  AND authority = ?
+                """,
+                Integer.class,
+                username,
+                ruolo
+        );
+
+        if (numeroRuoli == null || numeroRuoli == 0) {
+
+            jdbcTemplate.update(
+                    """
+                    DELETE FROM authorities
+                    WHERE username = ?
+                    """,
+                    username
+            );
+
+            jdbcTemplate.update(
+                    """
+                    INSERT INTO authorities (
+                        username,
+                        authority
+                    )
+                    VALUES (?, ?)
+                    """,
+                    username,
+                    ruolo
+            );
+
+            System.out.println(
+                    "Corretto ruolo di: " + username
+            );
+        }
+
+        /*
+         * Verifica se i dati personali esistono
+         * nella tabella utenti.
+         */
         Integer numeroUtenti = jdbcTemplate.queryForObject(
-                "SELECT COUNT(*) FROM users WHERE username = ?",
+                """
+                SELECT COUNT(*)
+                FROM utenti
+                WHERE username = ?
+                """,
                 Integer.class,
                 username
         );
 
-        if (numeroUtenti != null && numeroUtenti == 0) {
+        /*
+         * Inserisce i dati personali solamente
+         * quando non sono ancora presenti.
+         */
+        if (numeroUtenti == null || numeroUtenti == 0) {
 
             jdbcTemplate.update(
                     """
-                    INSERT INTO users(
+                    INSERT INTO utenti (
                         username,
                         nome,
                         cognome,
@@ -135,7 +200,9 @@ public class TestUsersConfig {
                     0
             );
 
-            System.out.println("Creati dati personali: " + username);
+            System.out.println(
+                    "Creati dati personali: " + username
+            );
         }
     }
 }
