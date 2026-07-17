@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Registrazione - Fitness with Pets</title>
+    <link rel="stylesheet" href="/css/style.css?v=3">
+</head>
+
+<body class="pagina-signup">
+
+<div class="box-signup">
+
+    <h1 class="main-title">Registrati</h1>
+
+    <p class="subtitle">
+        Crea il tuo account e scegli il piano più adatto al tuo percorso fitness.
+    </p>
+
+    <form action="/signup-success" method="get" id="signupForm">
+
+        <div class="riga-form">
+            <div class="gruppo-form">
+                <label for="nome" class="testo-verde-grassetto">Nome</label>
+                <input type="text" id="nome" name="nome" class="campo" required>
+            </div>
+
+            <div class="gruppo-form">
+                <label for="cognome" class="testo-verde-grassetto">Cognome</label>
+                <input type="text" id="cognome" name="cognome" class="campo" required>
+            </div>
+        </div>
+
+        <div class="gruppo-form">
+            <label for="dataNascita" class="testo-verde-grassetto">Data di nascita</label>
+            <input type="date"
+                   id="dataNascita"
+                   name="dataNascita"
+                   class="campo"
+                   required>
+            <p class="aiuto-form">Seleziona la tua data di nascita.</p>
+        </div>
+        <div class="gruppo-form">
+            <label for="email" class="testo-verde-grassetto">Email</label>
+            <input type="email" id="email" name="email" class="campo" required>
+        </div>
+
+        <div class="gruppo-form">
+            <label for="username" class="testo-verde-grassetto">Username</label>
+            <input type="text" id="username" name="username" class="campo" required>
+        </div>
+
+        <div class="riga-form">
+            <div class="gruppo-form">
+                <label for="password" class="testo-verde-grassetto">Password</label>
+                <input type="password"
+                       id="password"
+                       name="password"
+                       class="campo"
+                       minlength="8"
+                       maxlength="8"
+                       pattern="(?=.*id_05).{8}"
+                       required>
+                <p class="aiuto-form">La password deve essere lunga 8 caratteri e contenere id_05.</p>
+            </div>
+
+            <div class="gruppo-form">
+                <label for="confermaPassword" class="testo-verde-grassetto">Conferma password</label>
+                <input type="password"
+                       id="confermaPassword"
+                       name="confermaPassword"
+                       class="campo"
+                       minlength="8"
+                       maxlength="8"
+                       required>
+            </div>
+        </div>
+
+        <div class="gruppo-form">
+            <p class="testo-verde-grassetto">Scegli il piano di allenamento</p>
+
+            <div class="contenitore-piani">
+
+                <div class="piano">
+                    <input type="radio" id="prova" name="piano" value="PROVA" required>
+                    <label for="prova">
+                        <h3>Prova</h3>
+                        <p>Piano gratuito per provare la piattaforma e scoprire i primi esercizi.</p>
+                        <strong>Costo: 0€</strong>
+                    </label>
+                </div>
+
+                <div class="piano">
+                    <input type="radio" id="basic" name="piano" value="BASIC" required>
+                    <label for="basic">
+                        <h3>Basic</h3>
+                        <p>Piano base con programmi semplici e allenamenti guidati.</p>
+                        <strong>Costo: 9,99€/mese</strong>
+                    </label>
+                </div>
+
+                <div class="piano">
+                    <input type="radio" id="pro" name="piano" value="PRO" required>
+                    <label for="pro">
+                        <h3>Pro</h3>
+                        <p>Piano avanzato con programmi completi, statistiche e contenuti premium.</p>
+                        <strong>Costo: 99,99€/anno</strong>
+                    </label>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="buttons-area">
+            <button type="submit" class="btn btn-primary">Invia dati</button>
+            <button type="reset" class="btn btn-secondary">Reset</button>
+            <a href="/" class="btn btn-special">Torna alla home</a>
+        </div>
+
+    </form>
+
+</div>
+
+<script>
+    const form = document.getElementById("signupForm");
+
+    form.addEventListener("submit", function(event) {
+        const password = document.getElementById("password").value;
+        const confermaPassword = document.getElementById("confermaPassword").value;
+
+        if (password !== confermaPassword) {
+            event.preventDefault();
+            alert("Le password non coincidono.");
+        }
+    });
+</script>
+
+</body>
+</html>
